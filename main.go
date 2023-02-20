@@ -10,7 +10,6 @@ import (
 // Definerer flag-variablene i hoved-"scope"
 var fahr float64
 var out string
-var input string
 
 // Bruker init (som anbefalt i dokumentasjonen) for å sikre at flagvariablene
 // er initialisert.
@@ -24,7 +23,7 @@ func init() {
 	*/
 
 	// Definerer og initialiserer flagg-variablene
-	flag.Float64Var(&fahr, "F", 5.0, "temperatur i grader fahrenheit")
+	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
 	// Du må selv definere flag-variablene for "C" og "K"
 
 	// Du må selv definere flag-variabelen for -t flagget, som bestemmer
@@ -40,14 +39,14 @@ func main() {
 	fmt.Scan(&fahr)
 	fmt.Println("You entered:", fahr)
 
-	fmt.Print("Please enter C for Celsius or K for Kelvin: ")
+	fmt.Print("Please enter c for Celsius or k for Kelvin: ")
 	fmt.Scan(&out)
 	fmt.Println("You entered:", out)
 
-	if out == "C" {
+	if out == "c" {
 		celsius := conv.FarhenheitToCelsius(fahr)
 		fmt.Printf("%.2f degrees fahrenheit is %.2f degrees in celcius/n", fahr, celsius)
-	} else if out == "K" {
+	} else if out == "k" {
 		kelvin := conv.FarhenheitToKelvin(fahr)
 		fmt.Printf("%.2f degrees fahrenheit is %.2f degrees in kelvin/n", fahr, kelvin)
 	} else {

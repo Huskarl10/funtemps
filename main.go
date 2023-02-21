@@ -46,23 +46,26 @@ func main() {
 	if C != 0 {
 		if out == "F" {
 			res = conv.CelsiusToFahrenheit(C)
+		} else if out == "K" {
+			res = conv.CelsiusToKelvin(C)
 		}
-	} else if out == "K" {
-		res = conv.CelsiusToKelvin(C)
 
-	} else if F != 0 {
+	}
+
+	if F != 0 {
 		if out == "C" {
 			res = conv.FahrenheitToCelsius(F)
+		} else if out == "K" {
+			res = conv.FahrenheitToKelvin(F)
 		}
-	} else if out == "K" {
-		res = conv.FahrenheitToKelvin(F)
 
-	} else if K != 0 {
+	}
+	if K != 0 {
 		if out == "F" {
 			res = conv.KelvinToFahrenheit(K)
+		} else if out == "C" {
+			res = conv.KelvinToCelsius(K)
 		}
-	} else if out == "C" {
-		res = conv.KelvinToCelsius(K)
 
 	}
 

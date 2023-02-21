@@ -8,7 +8,9 @@ import (
 )
 
 // Definerer flag-variablene i hoved-"scope"
-var fahr float64
+var F float64
+var C float64
+var K float64
 var out string
 
 // Bruker init (som anbefalt i dokumentasjonen) for å sikre at flagvariablene
@@ -23,8 +25,12 @@ func init() {
 	*/
 
 	// Definerer og initialiserer flagg-variablene
-	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
+
+	flag.Float64Var(&F, "F", 0.0, "temperatur i grader fahrenheit")
+	flag.Float64Var(&C, "C", 0.0, "temperatur i grader celsius")
+	flag.Float64Var(&K, "K", 0.0, "temperatur i kelvin")
 	// Du må selv definere flag-variablene for "C" og "K"
+	flag.StringVar(&out, "out", "", "tempraturskala for resultat")
 
 	// Du må selv definere flag-variabelen for -t flagget, som bestemmer
 	// hvilken temperaturskala skal brukes når funfacts skal vises
@@ -35,23 +41,32 @@ func main() {
 
 	flag.Parse()
 
-	fmt.Print("Please enter how many degrees fahrenheit: ")
-	fmt.Scan(&fahr)
-	fmt.Println("You entered:", fahr)
+	var res float64
 
-	fmt.Print("Please enter c for Celsius or k for Kelvin: ")
-	fmt.Scan(&out)
-	fmt.Println("You entered:", out)
+	if C != 0 {
+		if out == "F" {
+			res = conv.CelsiusToFahrenheit(C)
+		}
+	} else if out == "K" {
+		res = conv.CelsiusToKelvin(C)
 
-	if out == "c" {
-		celsius := conv.FarhenheitToCelsius(fahr)
-		fmt.Printf("%.2f degrees fahrenheit is %.2f degrees in celcius/n", fahr, celsius)
-	} else if out == "k" {
-		kelvin := conv.FarhenheitToKelvin(fahr)
-		fmt.Printf("%.2f degrees fahrenheit is %.2f degrees in kelvin/n", fahr, kelvin)
-	} else {
-		fmt.Printf("Error worng output")
+	} else if F != 0 {
+		if out == "C" {
+			res = conv.FahrenheitToCelsius(F)
+		}
+	} else if out == "K" {
+		res = conv.FahrenheitToKelvin(F)
+
+	} else if K != 0 {
+		if out == "F" {
+			res = conv.KelvinToFahrenheit(K)
+		}
+	} else if out == "C" {
+		res = conv.KelvinToCelsius(K)
+
 	}
+
+	fmt.Printf("%.2f\n", res)
 
 	fmt.Println(isFlagPassed("out"))
 
